@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Auto Paragraph Generator</title>
+
+        <style>  
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            body{
+                background-color: rgb(255, 224, 178);
+            }
+            .main{
+                   width: 100%;
+                   min-height: 100vh;
+                   display: flex;
+                   flex-direction: column;
+                   justify-content: start;
+                   align-items: center;
+            }
+            .row{
+                width: 50%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                padding: 20px;
+                font-size: 20px;
+                font-weight:bold;
+            }
+            #item,button{
+                margin-left: 10px;
+                padding: 5px;
+                cursor: pointer;
+                min-height: 30px;
+                border-radius: 5px;
+                border: none;
+                box-shadow:2px 2px orangered;
+            }
+            button{
+                background-color: yellowgreen;
+            }
+           p{
+            text-align: justify;
+            padding-left: 100px;
+            padding-right:100px ;
+           }
+
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="row">
+        <div>
+            Paragraphs:
+        </div>
+         <div><input type="number" value="4" id="item"></div>
+        <div><button onclick = "myfunction()">Generate</button>
+        </div>
+        </div>
+        <div class="row" style="display:box;" id ="data"></div>
+        <p id ="para">
+            Hello ,Enter a number to Display Paragraph
+        </p>
+    </div>
+
+    </body>
+    <script>
+       
+       const text = [ `bhfvbvfh bhf hkjsd ddd ddddd ddd dddd dd dddddd dddddddd ddd ddd dd ddddfj kk kkkk kkkd dd dddd ddd ddddd dddd ddd dddd ddd dddddd ddd dddddd d ddd dddd ddd d dd ddd dd dd ddddd dd  dd  dddd dddd dd ddd dddd dd dddd`,
+
+       `nnn nn nn nnn nnnn nnn nn  nn nnnnn nn nn nnn nn nnnn nnnn nn nn nnnn nnn n nnnn nnn nn nnnn nnn n nnn nn nnnn nn nn nnn nnnn nnn nnn  nnn nnnn nnn  nnn nn nnnn  nnnnn nnnnn nnnn  nnnnnnnnnnnn nnn nnnnn nn nnnn  nnnnnnnnnnnnnn nnnn nnnnnnn nnnnnnnn nn nnnnnnnnnn  nnnn nnnn nnnnn nnn  nnnnnn nnnnnnnn nnnnnnnn nnn nnn nnnnkkkk kkkkkkkkk kk  kkkkkkkkk kkk kkkkk kkkkk kkkk kkkkkk k kkkk kkk kkkkkkkk kkkkkkkkkkkkk kkkkkkkkkk   k kkkk kkkkkk kkkkk kkkkkkkk kkkkk kkkkkkkk kkkkkkkk kkkkkkkkkk kkkkkkk kkkk kkkkkkk  kkkkk kkk kkk kkkkkkk kkkkkk kkkkkkkkk kkkkkkk kkkkk kkkkkkkkkk`,
+
+       ` k kkkkkkk kkkkkke wwwwww wwww wwwwww wwwwwwwwwwwww wwww wwwwwwwwww  wwwwwwwww wwwwww  w wwww wwwww wwwwwwww wwwwwwww w wwwww wwwwwwwwwwww wwwwww www wwwww wwwww wwwwwwwwww  wwwwwwwww wwwwww wwwww wwwww wwwwww wwww`,
+
+       ` n bxfgnfgnfgnfg nfgnfgn fgnfgnfg nfgnf gnf gnfgnfgnn fgfgfgf gfgfgf gfgfg fgfg fgnfg  g ggggggg g gggg ggggg ggfgf gnfgnhf hffghffgh fghfgh ffghghhg gggg gggggggg ggggggg`  ,
+
+       ` f fgaaannnnnn nnnnn nnnnnno oof dddd ddddddweeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeee  e   eeeeeeeeee    eee eeeeeeeee eee eeeeee eeeee eeeeeee eeeeeeeeeeeeeee  e eeeeeeeeeeee eeeeeeeeeeeeeee eeeee e eeeee eeeeee ee eeeeeeeeeeeee eeeeeeeeeeeee  eeeeee eeeee eeee  eeee eee eeee eeee ee e eeeeeee eeeee eeee e eeee eee eeeeeeeeeeeee eeee ee ee e`,
+       `bhfvbvfh bhf hkjsd ddd ddddd ddd dddd dd dddddd dddddddd ddd ddd dd ddddfj kk kkkk kkkd dd dddd ddd ddddd dddd ddd dddd ddd dddddd ddd dddddd d ddd dddd ddd d dd ddd dd dd ddddd dd  dd  dddd dddd dd ddd dddd dd dddd`,
+       
+       `nnn nn nn nnn nnnn nnn nn  nn nnnnn nn nn nnn nn nnnn nnnn nn nn nnnn nnn n nnnn nnn nn nnnn nnn n nnn nn nnnn nn nn nnn nnnn nnn nnn  nnn nnnn nnn  nnn nn nnnn  nnnnn nnnnn nnnn  nnnnnnnnnnnn nnn nnnnn nn nnnn  nnnnnnnnnnnnnn nnnn nnnnnnn nnnnnnnnnnnnnnnnnnnn  nnnn nnnn nnnnn nnn  nnnnnn nnnnnnnn nnnnnnnn nnn nnn nnnnkkkk kkkkkkkkk kk  kkkkkkkkk kkk kkkkk kkkkk kkkk kkkkkk k kkkk kkk kkkkkkkk kkkkkkkkkkkkk kkkkkkkkkk k kkkk kkkkkk kkkkk kkkkkkkk kkkkk kkkkkkkk kkkkkkkk kkkkkkkkkk kkkkkkk kkkk kkkkkkk  kkkkk kkk kkk kkkkkkk kkkkkk kkkkkkkkk kkkkkkk kkkkk kkkkkkkkkk`,
+
+       ` k kkkkkkk kkkkkke wwwwww wwww wwwwww wwww wwww wwwww wwww wwwwwwwwww  wwwwwwwww wwwwww  w wwww wwwww wwwwwwww ww wwwwww w wwwww wwwwwwwwwwww wwwwww www wwwww wwwww wwwwwwwwww  wwwww wwww wwwwww wwwww wwwww wwwwww wwww`,
+
+       ` n bxfgnfgnfgnfg nfgnfgn fgnfgnfg nfgnf gnf gnfgnfgnn fgfgfgf gfgfgf gfgfg fgfg fgnfg  g ggggggg g gggg ggggg ggfgf gnfgnhf hffghffgh fghfgh ffghghhg gggg gggggggg ggggggg` ,
+       
+       `f fgaaannnnnn nnnnn nnnnnno oof dddd ddddd dwee eeee eee eeeeee eeeee eeeeeeeeeeeeeee  e   eeeeeeeeee    eee eeeeeeeee eee eeeeee eeeee eeeeeee eeeeeeeeeeeeeee  e eeeeeeee eeee eeeee eeeeeee eee eeeee e eeeee eeeeee ee eeeeeeeeeeeee eeeeeeeeeeeee  eeeeee eeeee eeee  eeee eee eeee eeee ee e eeeeeee eeeee eeee e eeee eee eeeeeeeeeeeee eeee ee ee e`]; 
+
+    //    console.log(text.length);
+       
+
+    function myfunction() {
+           const count = document.getElementById("item").value;
+           if(count <= 0 || isNaN(count) || count > 10 ){
+            const random = Math.floor(Math.random() * 11 );
+            document.getElementById("para").innerHTML = text[random];
+           }
+           else{
+            let textn =" ";
+            const arr = sufflefun(text);
+            for(let i = 0; i<count; i++){
+                textn += arr[i] +"<br>"
+            }
+            document.getElementById("para").innerHTML = textn;
+           }
+
+           function sufflefun(text){
+        console.log(text.length);
+        let index = text.length;
+          while(index != 0){
+            var j = Math.floor(Math.random()*(index));
+            var temp = text[index];
+            text[index] = text[j];
+            text[j] = temp;
+            index--;
+         }
+         return text;
+       }
+    }
+
+    </script>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+    <head>
+        <title>TODOLIST</title>
+        <style>
+          *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+          .main{
+            width: 100%;
+            height: 100vh;
+            background-color: rosybrown;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .box{
+            width: 700px;
+            min-height: 500px;
+            border-radius:5px;
+            background-color: antiquewhite;
+            padding: 10px;
+          }
+          #item{
+            padding: 10px;
+            width: 100%;
+            border: 0;
+            outline: 0;
+            font-size: 20px;
+            display: block;
+          }
+          #todobox{
+            margin-top: 10px;
+            list-style: none;
+            
+          }
+
+          #todobox li{
+            background-color: #b8c0ff;
+            margin-top: 5px;
+            color: black;         
+            padding: 5px;
+            position: relative;
+            text-align: justify;
+            border-radius: 2px;
+            padding-right: 28px;
+            user-select: none;
+          }
+
+          #todobox li i{
+           position: absolute;
+           color: red;
+           right: 10px;
+           top: 10px;
+          }
+          
+          .done{
+            background-color: #31ea94 !important;
+            text-decoration: line-through;
+            color: gold !important;
+
+          }
+
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="box">
+                <input type="text" id="item" placeholder="Enter Your Content" autofocus>
+                <ul id = "todobox">
+                    
+                </ul>
+            </div>
+        </div>
+
+
+        <script src="https://kit.fontawesome.com/f2c3d41ca7.js" crossorigin="anonymous"></script>
+        <script>
+           const item = document.querySelector("#item");
+           const todobox = document.querySelector("#todobox");
+           item.addEventListener("keyup",function(event)
+           {   // console.log(event.key)
+                if(event.key == "Enter"){
+                    addtodo(this.value);
+                    savenotes(this.value);
+                    this.value = ""
+                }
+
+           })
+
+           const addtodo = (item) => {
+            const listitem = document.createElement("li");
+            listitem.innerHTML = ` ${item}
+                        <i class="fas fa-times"></i> `;
+
+            listitem.addEventListener(
+                "click",function(){
+                      this.classList.toggle("done");
+
+                }
+            )
+
+            listitem.querySelector("i").addEventListener("click",function(){
+                listitem.remove();
+            }
+            )
+
+             todobox.appendChild(listitem);
+           }
+           
+           const savenotes = (item) => 
+            {
+                 //const notes = document.querySelectorAll(".listitem li")
+                  const data = [];
+                // console.log(notes);
+                // item.forEach(
+                //     (listitem) => {
+                //         data.push(listitem.value)
+                //         console.log(data);
+                //     }
+                // )
+                // if(data.length===0)
+                // {
+                //     localStorage.removeItem("notes")
+                // }
+                // else
+                // {
+                //     // console.log("notes")
+                    localStorage.setItem("data",JSON.stringify(item))
+                    console.log(data);
+                // }
+                
+            }
+           
+            
+
+        </script>
+    </body>
+</html>

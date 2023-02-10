@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Slider</title>
+        <style>
+            *{
+                padding: 0;
+                margin:0;
+                box-sizing: border-box;
+            }
+            body{
+                background-color: navajowhite;
+            }
+            #main{
+                width: 60%;
+                height: 500px;
+                margin: auto;
+                margin-top: 100px;
+                background-color: lightgreen;
+                position: relative;
+                overflow: hidden;
+            }
+            .slide{
+                width: 100%;
+                height:100%;
+                transition: 1S;
+                position: absolute;
+            }
+            .nav{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+            }
+            .btn{
+                padding: 10px;
+                margin: 10px;
+                cursor: pointer;
+                border-radius: 2px;
+                border: transparent;
+            }
+
+            .btn:hover{
+                background-color: orangered;
+                border-radius: 10px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="main">
+                <img src="IMG_4516.JPG" alt ="ubais" class="slide" width="1000px" height="500px"></img>
+                <img src="IMG_4514.JPG" alt ="ubais" class="slide" width="1000px" height="500px"></img>
+                <img src="IMG_4515.JPG" alt ="ubais" class="slide" width="1000px" height="500px"></img>
+                <img src="IMG_4513.JPG" alt ="ubais" class="slide" width="1000px" height="500px"></img>
+            </div>
+            <div class="nav">
+            <button onclick = "goprev()" class="btn">Prev</button>
+            <button onclick="gonext()" class="btn">Next</button>
+            </div> 
+        
+
+
+    </body>
+    <script>
+        const slides = document.querySelectorAll(".slide")
+        let a = slides.length;
+        var counter = 0;
+        console.log(a);
+        slides.forEach(
+            (slide , index) => {
+                slide.style.left = `${index * 100}% `
+            }
+        )
+         
+        const goprev = () => {
+            counter--;
+            
+            slideimg();
+        }
+
+        const gonext = () =>
+        {
+            counter++;
+            if(counter == a)
+            {
+                counter = 0;
+                slideimg();
+            }
+            else{
+                
+                slideimg();
+            }
+           
+        }
+
+        const slideimg = () =>
+        {
+            slides.forEach(
+                (slide) => {
+                    slide.style.transform = `translateX(-${counter *100}%)`
+                }
+            )
+        }
+
+    </script>
+</html>
